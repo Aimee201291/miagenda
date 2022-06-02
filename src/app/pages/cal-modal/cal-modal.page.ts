@@ -11,6 +11,7 @@ export class CalModalPage implements AfterViewInit {
     mode: 'month',
     currentDate: new Date()
   };
+  
   viewTitle: string;
   
   event = {
