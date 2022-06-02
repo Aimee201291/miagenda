@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { EventModalPage } from './event-modal.page';
+import { CalModalPage } from './cal-modal.page';
 
 describe('EventModalPage', () => {
   let component: EventModalPage;
@@ -9,11 +9,11 @@ describe('EventModalPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ EventModalPage ],
+      declarations: [ CalModalPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(EventModalPage);
+    fixture = TestBed.createComponent(CalModalPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
