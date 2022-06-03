@@ -31,8 +31,6 @@
   </calendar>
 </ion-content-->
 
-<!---->
-
 <ion-toolbar color="primary">
   <ion-buttons slot="start">
     <ion-button (click)="close()">
@@ -50,23 +48,23 @@
 <ion-content>
   <ion-list>
     <ion-item>
-      <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
+      <ion-input type="text" placeholder="Título" [(ngModel)]="event.title"></ion-input>
     </ion-item>
  
     <ion-item>
-      <ion-label position="stacked" style="font-size: 1.2rem">Start</ion-label>
+      <ion-label position="stacked" style="font-size: 1.2rem">Inicio</ion-label>
       <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
     </ion-item>
  
     <ion-item>
-      <ion-label position="stacked" style="font-size: 1.2rem">End</ion-label>
+      <ion-label position="stacked" style="font-size: 1.2rem">Fin</ion-label>
       <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
     </ion-item>
  
-    <ion-item>
+    <!--ion-item>
       <ion-label>All Day?</ion-label>
       <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
-    </ion-item>
+    </ion-item-->
   </ion-list>
  
   <!--button ion-button full icon-left (click)="save()">

@@ -223,8 +223,8 @@ export class HomePage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: event.title,
       subHeader: event.desc,
-      message: 'From: ' + start + '<br><br>To: ' + end,
-      buttons: ['OK'],
+      message: 'Desde: ' + start + '<br><br>Hasta: ' + end,
+      buttons: [{text: 'OK'}, {text: 'ELIMINAR', handler: () => {this.prueba(event)}}],
     });
     alert.present();
   }
@@ -233,5 +233,15 @@ export class HomePage implements OnInit {
     this.selectedDay = event.selectedTime;
   }
 
+  removeEvents() {
+    this.eventSource = [];
+  }
+
+  prueba(event) {
+    console.log("Me tocaron");
+    //this.eventSource = this.eventSource.filter(item => item.title !== event.title && item.startTime.getTime() !== event.startTime.getTime()  && item.endTime.getTime()  !== event.endTime.getTime())
+    this.eventSource = this.eventSource.filter(item => (item.startTime !== event.startTime) && (item.endTime  !== event.endTime))
+
+  }
  
 }
