@@ -1,6 +1,6 @@
 import { CalendarComponent } from 'ionic2-calendar';
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
-import { AlertController, ModalController } from '@ionic/angular';
+import { NavController, AlertController, ModalController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
 import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
  
@@ -10,7 +10,7 @@ import { CalModalPage } from '../pages/cal-modal/cal-modal.page';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  eventSource = [];
+  /*eventSource = [];
   viewTitle: string;
  
   calendar = {
@@ -158,6 +158,80 @@ export class HomePage implements OnInit {
         this.myCal.loadEvents();
       }
     });
+  }*/
+
+  eventSource = [];
+  viewTitle: string;
+  selectedDay = new Date();
+ 
+  calendar = {
+    mode: 'month',
+    currentDate: new Date()
+  };
+
+  @ViewChild(CalendarComponent) myCal: CalendarComponent;
+
+  constructor(public navCtrl: NavController,
+              private modalCtrl: ModalController, 
+              private alertCtrl: AlertController,
+              @Inject(LOCALE_ID) private locale: string) { }
+
+  ngOnInit() {}
+  // Change current month/week/day
+  next() {
+    this.myCal.slideNext();
   }
+ 
+  back() {
+    this.myCal.slidePrev();
+  }
+
+  async openCalModal() {
+    const modal = await this.modalCtrl.create({
+      component: CalModalPage,
+      cssClass: 'cal-modal',
+      backdropDismiss: false
+    });
+   
+    await modal.present();
+   
+    modal.onDidDismiss().then((result) => {
+      if (result.data && result.data.event) {
+        let event = result.data.event;
+        //if (event.allDay) {
+          let start = event.startTime;
+            event.startTime = new Date(result.data.event.startTime);
+            event.endTime = new Date(result.data.event.endTime);
+        //}
+        this.eventSource.push(result.data.event);
+        this.myCal.loadEvents();
+      }
+    });
+  }
+
+  // Selected date reange and hence title changed
+  onViewTitleChanged(title) {
+    this.viewTitle = title;
+  }
+
+  // Calendar event was clicked
+  async onEventSelected(event) {
+    // Use Angular date pipe for conversion
+    let start = formatDate(event.startTime, 'medium', this.locale);
+    let end = formatDate(event.endTime, 'medium', this.locale);
+ 
+    const alert = await this.alertCtrl.create({
+      header: event.title,
+      subHeader: event.desc,
+      message: 'From: ' + start + '<br><br>To: ' + end,
+      buttons: ['OK'],
+    });
+    alert.present();
+  }
+
+  onTimeSelected(event) {
+    this.selectedDay = event.selectedTime;
+  }
+
  
 }
