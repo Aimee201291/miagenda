@@ -198,11 +198,9 @@ export class HomePage implements OnInit {
     modal.onDidDismiss().then((result) => {
       if (result.data && result.data.event) {
         let event = result.data.event;
-        //if (event.allDay) {
-          let start = event.startTime;
-            event.startTime = new Date(result.data.event.startTime);
-            event.endTime = new Date(result.data.event.endTime);
-        //}
+        let start = event.startTime;
+        event.startTime = new Date(result.data.event.startTime);
+        event.endTime = new Date(result.data.event.endTime);
         this.eventSource.push(result.data.event);
         this.myCal.loadEvents();
       }
@@ -224,7 +222,7 @@ export class HomePage implements OnInit {
       header: event.title,
       subHeader: event.desc,
       message: 'Desde: ' + start + '<br><br>Hasta: ' + end,
-      buttons: [{text: 'OK'}, {text: 'ELIMINAR', handler: () => {this.prueba(event)}}],
+      buttons: [{text: 'OK'}, {text: 'ELIMINAR', handler: () => {this.eliminarEvento(event)}}],
     });
     alert.present();
   }
@@ -237,8 +235,7 @@ export class HomePage implements OnInit {
     this.eventSource = [];
   }
 
-  prueba(event) {
-    console.log("Me tocaron");
+  eliminarEvento(event) {
     //this.eventSource = this.eventSource.filter(item => item.title !== event.title && item.startTime.getTime() !== event.startTime.getTime()  && item.endTime.getTime()  !== event.endTime.getTime())
     this.eventSource = this.eventSource.filter(item => (item.startTime !== event.startTime) && (item.endTime  !== event.endTime))
 
